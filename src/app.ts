@@ -10,6 +10,12 @@ app.use(express.json());
 // Sample Route with Typed Parameters
 app.get('/', (req: Request, res: Response) => {
     const {name} = req.query
+    if(name?.toString().trim()===''){
+        res.status(400).json({message: 'Name cannot be empty string'})
+        return;
+    }
+    
+
   res.json({ message: getHelloMessage(name)});
 });
 
