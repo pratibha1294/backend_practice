@@ -1,4 +1,5 @@
 import express, { Request, Response, Application } from 'express';
+import { getByeMessage, getHelloMessage } from './util/message.util';
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -8,11 +9,11 @@ app.use(express.json());
 
 // Sample Route with Typed Parameters
 app.get('/', (req: Request, res: Response) => {
-  res.json({ message: 'Hello from Express with TypeScript!' });
+  res.json({ message: getHelloMessage()});
 });
 
 app.get('/bye', (req: Request, res: Response) => {
-  res.json({ message: 'Bye! from Express with TypeScript!' });
+  res.json({ message: getByeMessage() });
 });
 
 app.listen(PORT, () => {
