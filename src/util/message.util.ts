@@ -1,8 +1,8 @@
-function getHelloMessage(): string {
+function getHelloMessage(name?: string): string {
     return 'Hello from Express with TypeScript!';
   }
 
-function getByeMessage(): string{
+function getByeMessage(name?: string): string{
 
     return 'Bye! from Express with TypeScript!'
 }

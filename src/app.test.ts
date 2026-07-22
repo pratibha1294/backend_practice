@@ -10,6 +10,18 @@ describe('get /',()=>{
         expect(res.body.message).toBe('Hello from Express with TypeScript!') 
 
     })
+     it('should return name in message', async ()=>{
+       const res= await request(app)
+        .get('/')
+        .query({
+            name: 'Prince'
+        })
+        .expect('Content-Type', /json/)
+        .expect(200);
+        expect(res.body.message).toBe('Hello Prince from Express with TypeScript!') 
+
+    })
+
 })
 
 describe('get /bye',()=>{
@@ -19,6 +31,18 @@ describe('get /bye',()=>{
         .expect('Content-Type', /json/)
         .expect(200);
         expect(res.body.message).toBe('Bye! from Express with TypeScript!')
+
+    })
+    
+    it('should return name in message', async ()=>{
+        const res= await request(app)
+        .get('/bye')
+        .query({
+            name: 'Pratibha'
+        })
+        .expect('Content-Type', /json/)
+        .expect(200);
+        expect(res.body.message).toBe('Bye! Pratibha from Express with TypeScript!')
 
     })
 
