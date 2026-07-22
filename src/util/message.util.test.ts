@@ -12,6 +12,10 @@ describe('HelloMessage',()=>{
         expect(getHelloMessage('name')).toBe('Hello name from Express with TypeScript!')
 
     })
+     it('should display name if provided',()=>{
+        expect(getHelloMessage('Prince')).toBe('Hello Prince from Express with TypeScript!')
+
+    })
 })
 
 describe('ByeMessage', ()=>{
@@ -21,6 +25,10 @@ describe('ByeMessage', ()=>{
     })
     it('should display name if provided',()=>{
         expect(getByeMessage('name')).toBe('Bye! name from Express with TypeScript!')
+
+    })
+     it('should display name if provided',()=>{
+        expect(getByeMessage('Prince')).toBe('Bye! Prince from Express with TypeScript!')
 
     })
 
