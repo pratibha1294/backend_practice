@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "types": ["jest","node"],
+    "isolatedModules": true,
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
