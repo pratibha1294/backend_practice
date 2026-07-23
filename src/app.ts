@@ -15,18 +15,26 @@ app.get('/', (req: Request, res: Response) => {
         return;
     }
     
-
-  res.json({ message: getHelloMessage(name)});
+    
+    res.json({ message: getHelloMessage(name)});
 });
 
 app.get('/bye', (req: Request, res: Response) => {
     const {name} = req.query
-  res.json({ message: getByeMessage(name) });
+    res.json({ message: getByeMessage(name) });
 });
 
 app.get('/phonebook', (req: Request, res: Response)=> {
     const {page_num, page_size, sort_by, sort_order, search_query} = req.query
-    console.log(req.query)
+    res.json({
+        "contacts": [
+            {
+                "name": "Ramesh",
+                "primary_number": "12323",
+                "contact_id": 1212
+            }
+        ]
+    })
 })
 
 export default app
