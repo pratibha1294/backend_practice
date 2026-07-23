@@ -1,6 +1,6 @@
 import express, { Request, Response, Application } from 'express';
 import { getByeMessage, getHelloMessage } from './util/message.util';
-
+import db from './util/db'
 const app: Application = express();
 
 
