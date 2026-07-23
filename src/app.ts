@@ -1,6 +1,7 @@
 import express, { Request, Response, Application } from 'express';
 import { getByeMessage, getHelloMessage } from './util/message.util';
 import db from './util/db'
+import { getAll } from './repo/phonebook.repo';
 const app: Application = express();
 
 
@@ -24,16 +25,10 @@ app.get('/bye', (req: Request, res: Response) => {
     res.json({ message: getByeMessage(name) });
 });
 
-app.get('/phonebook', (req: Request, res: Response)=> {
+app.get('/phonebook', async (req: Request, res: Response)=> {
     const {page_num, page_size, sort_by, sort_order, search_query} = req.query
     res.json({
-        "contacts": [
-            {
-                "name": "Ramesh",
-                "primary_number": "12323",
-                "contact_id": 1212
-            }
-        ]
+        "contacts": await getAll()
     })
 })
 
