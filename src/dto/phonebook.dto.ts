@@ -11,3 +11,14 @@ export interface PhonebookListResponse{
 
 
 }
+export interface CreateContactRequest{
+    name: string
+    primary_number: string
+   
+}
+
+export interface CreateContactResponse{
+    name: string
+    primary_number: string
+    contact_id: number
+}
