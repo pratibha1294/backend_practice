@@ -8,6 +8,7 @@
     "mysql2": "^3.23.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.62.0",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.1.1",
@@ -22,6 +23,7 @@
     "dev": "tsx watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --detectOpenHandles",
+    "test:e2e": "playwright test"
   }
 }
