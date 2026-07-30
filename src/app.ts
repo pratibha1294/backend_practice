@@ -3,6 +3,8 @@ import { getByeMessage, getHelloMessage } from './util/message.util';
 import db from './util/db'
 import { contactExists, createContact, getAll } from './repo/phonebook.repo';
 import { CreateContactRequest } from './dto/phonebook.dto';
+import { ByeController, HelloController } from './controller/greeting.controller';
+import greetingRoutes from './route/greeting.route'
 const app: Application = express();
 
 
@@ -10,21 +12,7 @@ const app: Application = express();
 app.use(express.json());
 
 // Sample Route with Typed Parameters
-app.get('/', (req: Request, res: Response) => {
-    const {name} = req.query
-    if(name?.toString().trim()===''){
-        res.status(400).json({message: 'Name cannot be empty string'})
-        return;
-    }
-    
-    
-    res.json({ message: getHelloMessage(name)});
-});
-
-app.get('/bye', (req: Request, res: Response) => {
-    const {name} = req.query
-    res.json({ message: getByeMessage(name) });
-});
+app.use('/greeting', greetingRoutes)
 
 app.get('/phonebook', async (req: Request, res: Response)=> {
     const {page_num, page_size, sort_by, sort_order, search_query} = req.query

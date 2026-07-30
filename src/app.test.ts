@@ -1,29 +1,29 @@
 import request from 'supertest'
 import app from './app'
 
-describe('get /',()=>{
+describe('get /greeting/hello',()=>{
      it('should return static message', async ()=>{
        const res= await request(app)
-        .get('/')
+        .get('/greeting/hello')
         .expect('Content-Type', /json/)
         .expect(200);
-        expect(res.body.message).toBe('Hello from Express with TypeScript!') 
+        expect(res.body.message).toBe('Hello from Express with TypeScript!')
 
     })
      it('should return name in message', async ()=>{
        const res= await request(app)
-        .get('/')
+        .get('/greeting/hello')
         .query({
             name: 'Prince'
         })
         .expect('Content-Type', /json/)
         .expect(200);
-        expect(res.body.message).toBe('Hello Prince from Express with TypeScript!') 
+        expect(res.body.message).toBe('Hello Prince from Express with TypeScript!')
 
     })
     it('should return error message when name is provided but empty',async()=>{
         const res= await request(app)
-        .get('/')
+        .get('/greeting/hello')
         .query({
             name: ""
         })
@@ -32,7 +32,7 @@ describe('get /',()=>{
     } )
     it('should return error message when name is provided in spaces only',async()=>{
         const res= await request(app)
-        .get('/')
+        .get('/greeting/hello')
         .query({
             name: "   "
         })
@@ -42,19 +42,19 @@ describe('get /',()=>{
 
 })
 
-describe('get /bye',()=>{
+describe('get /greeting/bye',()=>{
     it('should return static message', async ()=>{
         const res= await request(app)
-        .get('/bye')
+        .get('/greeting/bye')
         .expect('Content-Type', /json/)
         .expect(200);
         expect(res.body.message).toBe('Bye! from Express with TypeScript!')
 
     })
-    
+
     it('should return name in message', async ()=>{
         const res= await request(app)
-        .get('/bye')
+        .get('/greeting/bye')
         .query({
             name: 'Pratibha'
         })
