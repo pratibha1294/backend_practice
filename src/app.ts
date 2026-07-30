@@ -42,6 +42,16 @@ app.post('/phonebook', async (req: Request, res: Response)=> {
         res.status(400).json({message: 'Contact with this primary number already exists'})
         return;
     }
+    const isNameEmpty = body.name.trim() === '';
+    if(isNameEmpty){
+        res.status(400).json({message: 'Name cannot be empty string'})
+        return;
+    }
+    const isValid = /^\d{10}$/.test(body.primary_number);
+    if(!isValid){
+        res.status(400).json({message: 'Invalid primary number'})
+        return;
+    }
     const newContact = await createContact(body.name, body.primary_number)
     //validation for body params
     res.json({
