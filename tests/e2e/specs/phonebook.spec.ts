@@ -48,5 +48,12 @@ test.describe('Phonebook API', () => {
     expect(response.status()).toBe(400);
   });
 
-  
+  test ('rejects if primary number is empty string', async ({request})=>{
+    const response= await request.post('/phonebook', {
+      data: {
+        name: 'Tina', primary_number: ''
+      },
+    })
+    expect(response.status()).toBe(400);
+  })
 });
