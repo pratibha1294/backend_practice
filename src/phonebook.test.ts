@@ -12,6 +12,15 @@ describe('get /phonebook', () => {
     })
 
     it('should return contacts with name, primary_number and contact_id', async () => {
+       //create a contact first
+       await request(app)
+            .post('/phonebook')
+            .send({
+                name: 'Ramesh',
+                primary_number: '1234567890'
+            })
+            .expect(201);
+
         const res = await request(app)
             .get('/phonebook')
             .expect('Content-Type', /json/)
