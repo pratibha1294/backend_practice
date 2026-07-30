@@ -26,4 +26,16 @@ test.describe('Phonebook API', () => {
     });
     expect(response.status()).toBe(400);
   });
+
+  test('return list of contacts after adding', async ({ request})=> {
+    await request.post('/phonebook', {
+      data: { name: 'Charlie', primary_number: '9876543210' },
+    });
+    const response = await request.get('/phonebook');
+    expect(response.ok()).toBeTruthy();
+    const body = await response.json();
+    expect(body.contacts).toEqual( expect.arrayContaining([
+      expect.objectContaining({ name: 'Charlie', primary_number: '9876543210' })
+    ]));
+  });
 });
