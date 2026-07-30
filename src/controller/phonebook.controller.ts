@@ -30,9 +30,7 @@ const CreatePhonebookController: Controller = async (req:Request, res: Response)
        }
        const newContact = await createContact(body.name, body.primary_number)
        //validation for body params
-       res.json({
-           "contact": newContact
-       });
+       res.status(201).json({ "contact": newContact});
    
    };
 export {GetPhonebookController, CreatePhonebookController} ;
