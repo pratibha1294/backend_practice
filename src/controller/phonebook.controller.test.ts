@@ -1,5 +1,6 @@
 import request from 'supertest'
-import app from './app'
+import app from '../app'
+import { generateRandomMobileNumber } from '../util/testdata'
 
 describe('get /phonebook', () => {
     it('should return a list of contacts', async () => {
@@ -17,7 +18,7 @@ describe('get /phonebook', () => {
             .post('/phonebook')
             .send({
                 name: 'Ramesh',
-                primary_number: '1234567890'
+                primary_number: generateRandomMobileNumber()
             })
             .expect(201);
 
