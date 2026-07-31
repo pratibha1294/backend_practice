@@ -61,3 +61,42 @@ describe('get /phonebook', () => {
             .expect(200);
     })
 })
+
+describe('delete /phonebook/:contact_id', () => {
+    it('should delete an existing contact', async () => {
+        const createRes = await request(app)
+            .post('/phonebook')
+            .send({
+                name: 'Suresh',
+                primary_number: generateRandomMobileNumber()
+            })
+            .expect(201);
+
+        const { contact_id } = createRes.body.contact;
+
+        await request(app)
+            .delete(`/phonebook/${contact_id}`)
+            .expect(204);
+
+        const res = await request(app)
+            .get('/phonebook')
+            .expect(200);
+
+        const deletedContact = res.body.contacts.find(
+            (contact: { contact_id: number }) => contact.contact_id === contact_id
+        );
+        expect(deletedContact).toBeUndefined();
+    })
+
+    it('should return 404 when deleting a non-existent contact', async () => {
+        await request(app)
+            .delete('/phonebook/999999999')
+            .expect(404);
+    })
+
+    it('should return 400 when contact id is not a valid integer', async () => {
+        await request(app)
+            .delete('/phonebook/not-a-number')
+            .expect(400);
+    })
+})

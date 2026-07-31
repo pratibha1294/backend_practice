@@ -1,5 +1,5 @@
 import { CreateContactRequest } from "../dto/phonebook.dto";
-import { contactExists, createContact, getAll } from "../repo/phonebook.repo";
+import { contactExists, contactExistsById, createContact, deleteContact, getAll } from "../repo/phonebook.repo";
 import { Controller } from "./controller.type";
 import { Request, Response } from "express";
 
@@ -31,6 +31,21 @@ const CreatePhonebookController: Controller = async (req:Request, res: Response)
        const newContact = await createContact(body.name, body.primary_number)
        //validation for body params
        res.status(201).json({ "contact": newContact});
-   
+
    };
-export {GetPhonebookController, CreatePhonebookController} ;
+
+const DeletePhonebookController: Controller = async (req: Request, res: Response) => {
+    const contact_id = Number(req.params.contact_id);
+    if (!Number.isInteger(contact_id)) {
+        res.status(400).json({ message: 'Invalid contact id' });
+        return;
+    }
+    if (!(await contactExistsById(contact_id))) {
+        res.status(404).json({ message: 'Contact not found' });
+        return;
+    }
+    await deleteContact(contact_id);
+    res.status(204).send();
+};
+
+export {GetPhonebookController, CreatePhonebookController, DeletePhonebookController} ;

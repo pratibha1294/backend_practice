@@ -17,3 +17,13 @@ export async function contactExists(primary_number: string): Promise<boolean> {
     const count = rows[0].count as number;
     return count > 0;
 }
+
+export async function contactExistsById(contact_id: number): Promise<boolean> {
+    const [rows] = await pool.query<RowDataPacket[]>("SELECT COUNT(*) as count FROM contacts WHERE contact_id = ?", [contact_id]);
+    const count = rows[0].count as number;
+    return count > 0;
+}
+
+export async function deleteContact(contact_id: number): Promise<void> {
+    await pool.query<ResultSetHeader>("DELETE FROM contacts WHERE contact_id = ?", [contact_id]);
+}
