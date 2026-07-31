@@ -1,0 +1,49 @@
+:root {
+  --ink: #0a0a0a;
+  --bg: #fef6e4;
+  --paper: #ffffff;
+  --pink: #ff3d81;
+  --yellow: #ffd400;
+  --blue: #2f6fff;
+  --green: #00d68f;
+  --border: 3px;
+  --shadow-offset: 6px;
+
+  font: 500 18px/145% 'Space Grotesk', system-ui, sans-serif;
+  color-scheme: light;
+  color: var(--ink);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background:
+    radial-gradient(circle, var(--ink) 1.5px, transparent 1.5px) 0 0 / 26px 26px,
+    var(--bg);
+}
+
+#root {
+  width: 100%;
+  min-height: 100svh;
+}
+
+h1,
+h2 {
+  font-family: 'Archivo Black', 'Space Grotesk', system-ui, sans-serif;
+  font-weight: 400;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0;
+}
