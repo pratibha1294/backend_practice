@@ -43,15 +43,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
-      - name: Create database schema
-        run: |
-          mysql -h 127.0.0.1 -u backend -pbackend backend <<'SQL'
-          CREATE TABLE IF NOT EXISTS contacts (
-            contact_id INT AUTO_INCREMENT PRIMARY KEY,
-            name VARCHAR(255) NOT NULL,
-            primary_number VARCHAR(50) NOT NULL
-          );
-          SQL
+      - name: Run database migrations
+        run: yarn migrate
 
       - name: Run tests
         run: yarn test

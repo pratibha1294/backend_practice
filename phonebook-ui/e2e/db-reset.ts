@@ -1,28 +1,19 @@
-import mysql from 'mysql2/promise';
-import dotenv from 'dotenv';
+import { execFile } from 'child_process';
 import path from 'path';
+import { promisify } from 'util';
+import dotenv from 'dotenv';
 
 dotenv.config({ path: path.resolve(import.meta.dirname, '../../.env') });
 
-export async function resetDatabase(): Promise<void> {
-  const connection = await mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    multipleStatements: true,
-  });
+const execFileAsync = promisify(execFile);
+const repoRoot = path.resolve(import.meta.dirname, '../..');
+const dbMigrateBin = path.join(repoRoot, 'node_modules', '.bin', 'db-migrate');
 
-  try {
-    await connection.query(`
-      DROP TABLE IF EXISTS contacts;
-      CREATE TABLE contacts (
-        contact_id INT AUTO_INCREMENT PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        primary_number VARCHAR(50) NOT NULL
-      );
-    `);
-  } finally {
-    await connection.end();
-  }
+export async function resetDatabase(): Promise<void> {
+  const options = { cwd: repoRoot, env: process.env };
+
+  // Delegates to the backend's db-migrate setup (migrations/) instead of
+  // keeping a second copy of the schema in this project.
+  await execFileAsync(dbMigrateBin, ['reset', '--force-exit'], options);
+  await execFileAsync(dbMigrateBin, ['up', '--force-exit'], options);
 }
