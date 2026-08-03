@@ -1,31 +1,15 @@
-'use strict';
-
-var dbm;
-var type;
-var seed;
-
-/**
-  * We receive the dbmigrate dependency from dbmigrate initially.
-  * This enables us to not have to rely on NODE_PATH.
-  */
-exports.setup = function(options, seedLink) {
-  dbm = options.dbmigrate;
-  type = dbm.dataType;
-  seed = seedLink;
+exports.up = function (db) {
+    return db.runSql(`
+        CREATE TABLE contacts (
+            contact_id INT AUTO_INCREMENT PRIMARY KEY,
+            name VARCHAR(255) NOT NULL,
+            primary_number VARCHAR(50) NOT NULL
+        );
+    `);
 };
 
-exports.up = function(db) {
-  return db.createTable('contacts', {
-    contact_id: { type: 'int', primaryKey: true, autoIncrement: true },
-    name: { type: 'string', length: 255, notNull: true },
-    primary_number: { type: 'string', length: 50, notNull: true },
-  });
-};
-
-exports.down = function(db) {
-  return db.dropTable('contacts');
-};
-
-exports._meta = {
-  "version": 1
+exports.down = function (db) {
+    return db.runSql(`
+        DROP TABLE contacts;
+    `);
 };
